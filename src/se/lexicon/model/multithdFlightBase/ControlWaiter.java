@@ -16,11 +16,6 @@ public class ControlWaiter implements Runnable {
 		this.command = command;
 	}
 
-//	public ControlWaiter(Command m){
-//        this.command=m;
-//        
-//    }
-
 	@Override
 	public void run() {
        String name = Thread.currentThread().getName();
