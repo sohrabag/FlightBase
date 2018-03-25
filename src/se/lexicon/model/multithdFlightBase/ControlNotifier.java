@@ -16,27 +16,26 @@ public ControlNotifier(Command command) {
 	@Override
 	public void run() {
         String name = Thread.currentThread().getName();
-        System.out.println(name+" started");
+        System.out.println(name+" Notifier started");
         try {
-            Thread.sleep(1000);
-            synchronized (command) {
-            	GregorianCalendar gc = new GregorianCalendar();
-            	gc.setTime(command.getAirplane().getArrivalTime());
-            	gc.add(GregorianCalendar.MINUTE, 2);
-				System.out.println(gc.getTime());
-				
-            	command.setCommand(name+" Notifier work done");
-                //command.notify();
-                 command.notifyAll();
-			}
-//            synchronized (command) {
-//            	command.setCommand(name+" Notifier work done");
-//                //command.notify();
-//                 command.notifyAll();
-//            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+			Thread.sleep(120000);
+			GregorianCalendar gc1 = new GregorianCalendar();
+//			System.out.println(gc1.getTime());
+	            synchronized (command) {
+	            	command.setCommand(name+" Notifier work done");
+	                //command.notify();
+	                 command.notifyAll();
+	//                 command.getAirplane().notifyAll();
+				}
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+        System.out.println("Flight : " +  command.getAirplane().getFlightNumber() + 
+        		" Destination : " + command.getAirplane().getDestination() + 
+        		" DepartureTime : " + command.getAirplane().getDepartureTime() + "\n");
+        System.out.println("Airplane Landing " + "\n");
+
+        System.out.println();
  	}
 
 }

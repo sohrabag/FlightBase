@@ -12,6 +12,12 @@ private Airplane1 airplane;
 		this.airplane = airplane;
 	}	
 
+//	public Command(String command) {
+//		super();
+//		this.command = command;
+//		this.airplane = airplane;
+//	}
+	
 	public String getCommand() {
         return command;
     }

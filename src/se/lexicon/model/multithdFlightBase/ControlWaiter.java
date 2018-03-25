@@ -9,8 +9,6 @@ public class ControlWaiter implements Runnable {
 
     private Command command;
     
-    GregorianCalendar gc = new GregorianCalendar();
-    
     public ControlWaiter(Command command) {
 		super();
 		this.command = command;
@@ -22,13 +20,17 @@ public class ControlWaiter implements Runnable {
 
        synchronized (command) {
 		    try{
+		    	GregorianCalendar gc = new GregorianCalendar();
 		        System.out.println(name+" waiting to get notified at time: "+ gc.getTime());
+		        System.out.println("Airplane taking off" + "\n");
+		        System.out.println("Flight : " +  command.getAirplane().getFlightNumber() + 
+		        		" Destination : " + command.getAirplane().getDestination() + 
+		        		" DepartureTime : " + command.getAirplane().getDepartureTime() + "\n");
 		        command.wait();
+//		        command.getAirplane().wait();
 		    }catch(InterruptedException e){
 		        e.printStackTrace();
 		    }
-		    gc.add(GregorianCalendar.MINUTE, 2);
-		    System.out.println(name+" waiter thread got notified at time:"+ gc.getTime());
 		    //process the message now
 		    System.out.println(name+" processed: "+command.getCommand());
 		    }
