@@ -20,4 +20,6 @@ public interface Airplane1 {
 	public Date getDepartureTime();
 	public void setDepartureTime(Date date);
 	public Date getArrivalTime();
-	public void setArrivalTime(Date date);}
+	public void setArrivalTime(Date date);
+	public String getFlightNumber();
+	}

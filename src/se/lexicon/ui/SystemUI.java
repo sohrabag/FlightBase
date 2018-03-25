@@ -77,6 +77,9 @@ public class SystemUI {
         System.out.println("\n");
         System.out.println("[2]) One airline flies three airplanes");
         System.out.println("\n");
+        System.out.println("[3]) One airline flies three airplanes with a Flight Control simultaneously.");
+        System.out.println("\n");
+        
 		// Try-with-resources to auto-close scanner on error or exit
 		try(Scanner scanner = new Scanner(System.in)) {
 
@@ -547,6 +550,9 @@ System.out.println("End of program FlightBase-----");
 					   airline.setbExpand(true);
 
 					   airplane = new AirplaneImp1(flightManger.generateFlightNumber());
+					   GregorianCalendar gc1 = new GregorianCalendar();
+					   gc1.setTime(ticket.getFlightTime());
+					   airplane.setDepartureTime(gc1.getTime());
 					   airplane.addSeat(); //I dont know if i want it here!
 					   System.out.println("one airplane is created and joined to the Fleet of the " + airline.getName());
 					   airplaneList.add(airplane);
@@ -585,12 +591,14 @@ System.out.println("End of program FlightBase-----");
 					   next.takeOff();
 					   System.out.println(next.toString());
 					   System.out.println("time of flight takeof is: " + next.toString());
+					   
 					   try {
 						Thread.sleep(12000);
-					} catch (InterruptedException e) {
-						
-						e.printStackTrace();
-					}
+						} catch (InterruptedException e) {
+							
+							e.printStackTrace();
+						}
+
 					   gc1.setTime(next.getDepartureTime());
 					   gc1.add(GregorianCalendar.MINUTE,2);
 					   date = gc1.getTime();
@@ -621,5 +629,11 @@ System.out.println("End of program FlightBase-----");
 			List<Airplane1> airplaneList = takePassengerThreePlanes(scanner);
 			FlightControl flightControl = new FlightControl(airplaneList);
 			flightControl.Control();
+			try {
+				Thread.currentThread().join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 }
