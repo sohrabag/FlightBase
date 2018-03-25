@@ -553,6 +553,8 @@ System.out.println("End of program FlightBase-----");
 					   GregorianCalendar gc1 = new GregorianCalendar();
 					   gc1.setTime(ticket.getFlightTime());
 					   airplane.setDepartureTime(gc1.getTime());
+					   gc1.add(GregorianCalendar.MINUTE, 2);
+					   airplane.setArrivalTime(gc1.getTime());
 					   airplane.addSeat(); //I dont know if i want it here!
 					   System.out.println("one airplane is created and joined to the Fleet of the " + airline.getName());
 					   airplaneList.add(airplane);
