@@ -62,6 +62,12 @@ public class FlightControl {
 	    
 	    System.out.println("All the threads are started");
 	    
+	    try {
+			Thread.currentThread().join();
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -26,6 +26,8 @@ import se.lexicon.model.multithdFlightBase.FlightControl;
 
 public class SystemUI {
 
+	String keyboard = null;
+	
 	// Start the applications UI
 	public void start() {
 
@@ -114,11 +116,11 @@ public class SystemUI {
 							break;
 							
 						case "2":
-							   takePassengerThreePlanes(scanner);
+							   takePassengerThreePlanes(scanner, keyboard);
 							break;
 							
 						case "3":
-							MultithrdFlightBase(scanner);
+							MultithrdFlightBase(scanner, keyboard);
 							break;
 						default:
 							System.out.println(keyboard + " is not a valid option. Please try again."); 
@@ -127,6 +129,7 @@ public class SystemUI {
 
 					// Catch any and all program-specific exceptions here to de-clutter your switch-case
 					// in case of checked and/or custom exceptions.
+					Thread.currentThread().join();
 
 				} catch (Exception e) {
 					System.out.println("Exception caught in inner try : " + e.getMessage());
@@ -373,7 +376,7 @@ System.out.println("End of program FlightBase-----");
 		}while(isRunning);		
 	}
 		
-		public List<Airplane1> takePassengerThreePlanes(Scanner scanner)
+		public List<Airplane1> takePassengerThreePlanes(Scanner scanner, String keyword)
 		{
 			// Loop-condition
 			boolean isRunning = true;
@@ -588,26 +591,29 @@ System.out.println("End of program FlightBase-----");
 				   GregorianCalendar gc1 = new GregorianCalendar();
 				   Date date;
 				   
-				   for(Airplane1 next : airplaneList)
-				   {
-					   next.takeOff();
-					   System.out.println(next.toString());
-					   System.out.println("time of flight takeof is: " + next.toString());
-					   
-					   try {
-						Thread.sleep(12000);
-						} catch (InterruptedException e) {
-							
-							e.printStackTrace();
-						}
+				   if(keyword.toLowerCase().equals("2")) {
+					   for(Airplane1 next : airplaneList)
+					   {
+						   next.takeOff();
+						   System.out.println(next.toString());
+						   System.out.println("time of flight takeof is: " + next.toString());
+						   
+						   try {
+							Thread.sleep(12000);
+							} catch (InterruptedException e) {
+								
+								e.printStackTrace();
+							}
 
-					   gc1.setTime(next.getDepartureTime());
-					   gc1.add(GregorianCalendar.MINUTE,2);
-					   date = gc1.getTime();
-					   System.out.println("Time of Landing of Flight is: " + date );
-					   next.land();
-					   System.out.println("Airplane refulled after landing");
-					   airplane.isbRefulled();
+						   gc1.setTime(next.getDepartureTime());
+						   gc1.add(GregorianCalendar.MINUTE,2);
+						   date = gc1.getTime();
+						   System.out.println("Time of Landing of Flight is: " + date );
+						   next.land();
+						   System.out.println("Airplane refulled after landing");
+						   airplane.isbRefulled();
+					   }
+					   
 				   }
 			   
 				   System.out.println(airline.toString());
@@ -617,25 +623,19 @@ System.out.println("End of program FlightBase-----");
 				   }
 
 				   //----------------------------
-				   if(true) {
-					   isRunning = false;
-				   }
+//				   if(true) {
+//					   isRunning = false;
+//				   }
 			   }while(isRunning);
 			
 			return airplaneList;
 		}
 		
-		public void MultithrdFlightBase(Scanner scanner)
+		public void MultithrdFlightBase(Scanner scanner, String keyword)
 		{
 			System.out.println("The flight control will control take off and landing of airplanes");
-			List<Airplane1> airplaneList = takePassengerThreePlanes(scanner);
+			List<Airplane1> airplaneList = takePassengerThreePlanes(scanner, keyword);
 			FlightControl flightControl = new FlightControl(airplaneList);
 			flightControl.Control();
-			try {
-				Thread.currentThread().join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 }
