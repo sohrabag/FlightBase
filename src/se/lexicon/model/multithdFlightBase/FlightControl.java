@@ -14,11 +14,11 @@ public class FlightControl {
 	}
 
 	Command command;
-	
-	public FlightControl(Command command) {
-	super();
-	this.command = command;
-}
+//	
+//	public FlightControl(Command command) {
+//	super();
+//	this.command = command;
+//}
 	
 	public void Control() {
 
